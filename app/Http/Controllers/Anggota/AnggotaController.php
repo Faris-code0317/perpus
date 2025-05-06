@@ -14,6 +14,7 @@ class AnggotaController extends Controller
     public function dashboard(){
         return view('anggota.dashboard');
     }
+
     public function index()
     {
         $anggotas = Anggota::all();
@@ -58,24 +59,38 @@ class AnggotaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Anggota $anggota)
     {
-        //
+    return view('anggota.page.edit', compact('anggota'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, Anggota $anggota){
+        
+            $validate = $request->validate([
+                'nama'=>'required|string',
+                'no_telp'=>'required|numeric',
+                'email'=>'required|string',
+                'kota'=>'required|string',
+                'alamat'=>'required|string',
+                'tgl_lahir'=>'required|string',
+            ]);
+    
+            $anggota->update($validate);
+    
+            return redirect()->route('anggota.tampil');
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Anggota $anggota)
     {
-        //
+       $anggota->delete();
+       return redirect()->route('anggota.tampil');
     }
 }

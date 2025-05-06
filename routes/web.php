@@ -11,4 +11,8 @@ Route::get('/', function () {
 Route::get('/dashboard',[AnggotaController::class,'dashboard'])->name('anggota.dashboard');
 Route::get('/tambah-anggota',[AnggotaController::class,'create'])->name('anggota.create');
 Route::get('/anggota-tampil',[AnggotaController::class,'index'])->name('anggota.tampil');
-Route::post('/anggota-baru',[AnggotaController::class,'store'])->name('anggota.store');
+Route::get('/anggota-edit/{anggota}',[AnggotaController::class,'edit'])->name('anggota.edit');
+
+Route::post('/new',[AnggotaController::class,'store'])->name('anggota.store');
+Route::post('/update/{anggota}',[AnggotaController::class,'update'])->name('anggota.update');
+Route::delete('delete/{anggota}',[AnggotaController::class,'destroy'])->name('anggota.delete');
