@@ -22,14 +22,17 @@
                             <th>Opsi</th>
                         </tr>
                     </thead>
+      
                     <tbody>
                         @foreach ($peminjam as $no => $dataPeminjam)
                         <tr>
                             <td>{{ $no + 1 }}</td>
-                            <td>User</td>
-                            <td>08455353</td>
-                            <td>user@gmail.com</td>
-                            <td>Jl.ksmakkkk</td>
+                            <td>{{$dataPeminjam->nama}}</td>
+                            <td>{{$dataPeminjam->email}}</td>
+                            <td>{{$dataPeminjam->no_telp}}</td>
+                            <td>{{$dataPeminjam->kota}}</td>
+                            <td>{{$dataPeminjam->alamat}}</td>
+                            <td>{{$dataPeminjam->tgl_lahir}}</td>
                             <td>{{ $dataPeminjam->judul_buku }}</td>
                             <td>
                                 @if ($dataPeminjam->image_url)

@@ -13,6 +13,7 @@ class AnggotaController extends Controller
      */
     public function dashboard(){
         return view('anggota.dashboard');
+        
     }
 
     public function index()
@@ -45,7 +46,7 @@ class AnggotaController extends Controller
 
         Anggota::create($validate);
 
-        return redirect()->route('anggota.tampil');
+        return redirect()->route('anggota.koleksi');
     }
 
     /**
@@ -81,7 +82,7 @@ class AnggotaController extends Controller
     
             $anggota->update($validate);
     
-            return redirect()->route('anggota.tampil');
+            return redirect()->route('anggota.koleksi');
         
     }
 
