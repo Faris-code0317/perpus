@@ -20,10 +20,14 @@
     
           <nav id="navmenu" class="navmenu">
             <ul>
-              <li><a href="/" class="active">Beranda<br></a></li>
+              <li><a href="/" class="active ">Beranda<</a></li>
               <li><a href="{{route('anggota.koleksi')}}">Koleksi</a></li>
+            </ul>
+          </nav>
         </div>
       </header>
+
+      
     
         <!-- Hero Section -->
         <section id="hero" class="hero section">
