@@ -1,11 +1,21 @@
 <?php
 
 use App\Http\Controllers\Anggota\AnggotaController;
+use App\Http\Controllers\bukuController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('beranda');
-});
+Route::get('/', [bukuController::class, 'index']);
+Route::get('/adminPerpus', [bukuController::class, 'indexAdmin']);
+Route::post('/adminPerpus/tambahBuku', [bukuController::class, 'add']);
+Route::delete('/adminPerpus/deleteBuku{id}', [bukuController::class, 'destroy']);
+Route::get('/adminPerpus/edit{id}', [bukuController::class, 'edit']);
+Route::put('/adminPerpus/updateBuku/{id}', [bukuController::class, 'update']);
+
+Route::get('/adminPerpus/peminjam',[bukuController::class,'indexPeminjam']);
+
+// Route::get('/', function () {
+//     return view('beranda');
+// });
 
 
 Route::get('/koleksi',[AnggotaController::class,'dashboard'])->name('anggota.koleksi');

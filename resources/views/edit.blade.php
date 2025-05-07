@@ -11,10 +11,10 @@
                 <div class="numbers">
                   <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Money</p>
                   <h5 class="font-weight-bolder">
-                    $0
+                    $53,000
                   </h5>
                   <p class="mb-0">
-                    <span class="text-success text-sm font-weight-bolder">+0%</span>
+                    <span class="text-success text-sm font-weight-bolder">+55%</span>
                     since yesterday
                   </p>
                 </div>
@@ -36,10 +36,10 @@
                 <div class="numbers">
                   <p class="text-sm mb-0 text-uppercase font-weight-bold">Today's Users</p>
                   <h5 class="font-weight-bolder">
-                    0
+                    2,300
                   </h5>
                   <p class="mb-0">
-                    <span class="text-success text-sm font-weight-bolder">+0%</span>
+                    <span class="text-success text-sm font-weight-bolder">+3%</span>
                     since last week
                   </p>
                 </div>
@@ -61,10 +61,10 @@
                 <div class="numbers">
                   <p class="text-sm mb-0 text-uppercase font-weight-bold">New Clients</p>
                   <h5 class="font-weight-bolder">
-                    +0
+                    +3,462
                   </h5>
                   <p class="mb-0">
-                    <span class="text-danger text-sm font-weight-bolder">0%</span>
+                    <span class="text-danger text-sm font-weight-bolder">-2%</span>
                     since last quarter
                   </p>
                 </div>
@@ -86,10 +86,10 @@
                 <div class="numbers">
                   <p class="text-sm mb-0 text-uppercase font-weight-bold">Sales</p>
                   <h5 class="font-weight-bolder">
-                    $0
+                    $103,430
                   </h5>
                   <p class="mb-0">
-                    <span class="text-success text-sm font-weight-bolder">+0%</span> than last month
+                    <span class="text-success text-sm font-weight-bolder">+5%</span> than last month
                   </p>
                 </div>
               </div>
@@ -110,88 +110,43 @@
               <h6 class="mb-0">Tambah Buku</h6>
             </div>
             <div class="card-body p-3">
-                <form action="/adminPerpus/tambahBuku" method="POST" enctype="multipart/form-data">
+                <form action="{{ url('/adminPerpus/updateBuku/' . $buku->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
 
-                <label for="no_buku">No Buku</label><br>
-                <input type="number" name="no_buku" class="form-control"><br>
+                <label for="no_buku">No Buku</label>
+                <input type="number" name="no_buku" value="{{ $buku->no_buku }}" class="form-control"><br>
 
-                <label for="judul_buku">Judul Buku</label><br>
-                <input type="text" name="judul_buku" class="form-control"><br>
+                <label for="judul_buku">Judul Buku</label>
+                <input type="text" name="judul_buku" value="{{ $buku->judul_buku }}" class="form-control"><br>
 
-                <label for="pengarang">Pengarang</label><br>
-                <input type="text" name="pengarang" class="form-control"><br>
+                <label for="pengarang">Pengarang</label>
+                <input type="text" name="pengarang" value="{{ $buku->pengarang }}" class="form-control"><br>
 
-                <label for="tahun_terbit">Tahun Terbit</label><br>
-                <input type="number" name="tahun_terbit" class="form-control"><br>
+                <label for="tahun_terbit">Tahun Terbit</label>
+                <input type="number" name="tahun_terbit" value="{{ $buku->tahun_terbit }}" class="form-control"><br>
 
-                <label for="rak">No Rak</label><br>
-                <input type="number" name="rak" class="form-control"><br>
+                <label for="rak">Rak</label>
+                <input type="text" name="rak" value="{{ $buku->rak }}" class="form-control"><br>
 
-                <label for="status">Status Buku</label>
-                <select name="status" id="status" class="form-control">
-                    <option value="tersedia">Tersedia</option>
-                    <option value="dipinjam">Dipinjam</option>
-                    <option value="rusak">Rusak</option>
-                    <option value="hilang">Hilang</option>
-                </select>
+                <label for="status">Status</label>
+                <select name="status" class="form-control">
+                    <option value="tersedia" {{ $buku->status == 'tersedia' ? 'selected' : '' }}>Tersedia</option>
+                    <option value="dipinjam" {{ $buku->status == 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
+                    <option value="rusak" {{ $buku->status == 'rusak' ? 'selected' : '' }}>Rusak</option>
+                    <option value="hilang" {{ $buku->status == 'hilang' ? 'selected' : '' }}>Hilang</option>
+                </select><br>
 
-                <label for="image_url">Foto Buku</label>
-                <input type="file" name="image_url" id="image_url" class="form-control">
+                <label for="image_url">Ganti Gambar (opsional)</label>
+                <input type="file" name="image_url" class="form-control"><br>
 
-                <input type="submit" value="Tambah" class="mt-5 btn btn-primary">
-                </form>
-            </div>
-          </div>
-    </div>
+                @if ($buku->image_url)
+                    <img src="{{ asset('uploads/' . $buku->image_url) }}" alt="Foto Buku" width="100">
+                @endif
+                <br><br>
 
-    <div class="row mt-5">
-        <div class="card">
-            <div class="card-header pb-0 p-3">
-              <h6 class="mb-0">Data Buku</h6>
-            </div>
-            <div class="card-body table-responsive p-3">
-                <table class="table table-hover text-nowrap">
-                    <thead style="text-align: center">
-                        <tr>
-                            <th>No</th>
-                            <th>Judul Buku</th>
-                            <th>Pengarang</th>
-                            <th>Tahun Terbit</th>
-                            <th>No Rak</th>
-                            <th>Status Buku</th>
-                            <th>Image</th>
-                            <th>Opsi</th>
-                        </tr>
-                    </thead>
-                    <tbody style="text-align: center">
-                        @foreach ($buku as $no => $dataBuku)
-                        <tr>
-                            <td>{{ $no + 1 }}</td>
-                            <td>{{ $dataBuku->judul_buku }}</td>
-                            <td>{{ $dataBuku->pengarang }}</td>
-                            <td>{{ $dataBuku->tahun_terbit }}</td>
-                            <td>{{ $dataBuku->rak }}</td>
-                            <td>{{ $dataBuku->status }}</td>
-                            <td>
-                                @if ($dataBuku->image_url)
-                                    <img src="{{ asset('uploads/' . $dataBuku->image_url) }}" alt="Cover Buku" width="60" class="rounded shadow-sm">
-                                @else
-                                    <span>Tidak ada gambar</span>
-                                @endif
-                            </td>
-                            <td>
-                                <a href="/adminPerpus/edit{{ $dataBuku->id }}" class="btn btn-sm btn-primary mb-1">Edit</a>
-                                <form action="/adminPerpus/deleteBuku{{ $dataBuku->id }}" method="post" style="display:inline-block">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" value="Hapus" class="btn btn-sm mb-1 btn-danger">
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
             </div>
           </div>
     </div>
